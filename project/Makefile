@@ -6,14 +6,18 @@ MAIL_BINARY=mailApp
 LISTENER_BINARY=listenerApp
 FRONT_BINARY=frontEndApp
 
+DB_MONGO=db-data/mongo
+DB_POSTGRES=db-data/postgres
+DB_RABBITMQ=db-data/rabbitmq
+
 ## up: starts all containers in the background without forcing build
-up:
+up: db_folder
 	@echo "Starting Docker images..."
 	docker compose up -d
 	@echo "Docker images started!"
 
 ## up_build: stops docker-compose (if running), builds all projects and starts docker compose
-up_build: build_broker build_auth build_logger build_mail build_listener build_front_bin
+up_build: db_folder build_broker build_auth build_logger build_mail build_listener build_front_bin
 	@echo "Stopping docker images (if running...)"
 	docker compose down
 	@echo "Building (when required) and starting docker images..."
@@ -25,6 +29,13 @@ down:
 	@echo "Stopping docker compose..."
 	docker compose down
 	@echo "Done!"
+
+## db_folder: if db folder doesn't exist, create an empty one
+db_folder:
+	if [ ! -d "${DB_MONGO}" ]; then mkdir -p "${DB_MONGO}"; fi
+	if [ ! -d "${DB_POSTGRES}" ]; then mkdir -p "${DB_POSTGRES}"; fi
+	if [ ! -d "${DB_RABBITMQ}" ]; then mkdir -p "${DB_RABBITMQ}"; fi
+	@echo "db folders checked"
 
 ## build_broker: builds the broker binary as a linux executable
 build_broker:
