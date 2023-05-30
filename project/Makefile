@@ -9,6 +9,8 @@ FRONT_BINARY=frontEndApp
 DB_MONGO=db-data/mongo
 DB_POSTGRES=db-data/postgres
 DB_RABBITMQ=db-data/rabbitmq
+CADDY_CONFIG=caddy_config
+CADDY_DATA=caddy_data
 
 ## up: starts all containers in the background without forcing build
 up: db_folder
@@ -35,6 +37,8 @@ db_folder:
 	if [ ! -d "${DB_MONGO}" ]; then mkdir -p "${DB_MONGO}"; fi
 	if [ ! -d "${DB_POSTGRES}" ]; then mkdir -p "${DB_POSTGRES}"; fi
 	if [ ! -d "${DB_RABBITMQ}" ]; then mkdir -p "${DB_RABBITMQ}"; fi
+	if [ ! -d "${CADDY_CONFIG}" ]; then mkdir -p "${CADDY_CONFIG}"; fi
+	if [ ! -d "${CADDY_DATA}" ]; then mkdir -p "${CADDY_DATA}"; fi
 	@echo "db folders checked"
 
 ## build_broker: builds the broker binary as a linux executable
