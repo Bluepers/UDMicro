@@ -60,7 +60,7 @@ services:
     deploy:
       mode: global
   mailhog:
-    image: mailhog/mailhog:latest
+    image: mintedkitten/mailhog:latest
     ports:
       - "8025:8025"
     deploy:
