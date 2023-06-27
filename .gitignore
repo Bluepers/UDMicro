@@ -15,3 +15,5 @@ logger-service/loggerServiceApp
 mail-service/mailApp
 
 project/db-data
+
+.DS_Store
